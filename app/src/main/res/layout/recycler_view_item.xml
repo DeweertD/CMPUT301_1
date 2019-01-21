@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Recycler_View_Outer_Linear_Layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+  <ImageView
+      android:id="@+id/Recycler_View_Image_View"
+      android:layout_width="60dp"
+      android:layout_height="match_parent"
+      android:contentDescription="@string/Recycler_View_Heart_Image"
+      app:srcCompat="@android:drawable/btn_star_big_on" />
+
+  <LinearLayout
+      android:id="@+id/Recycler_View_Innter_Linear_Layout"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:orientation="vertical"
+      android:padding="5dp">
+
+    <TextView
+        android:id="@+id/Recycler_View_Date_of_Measurement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="@tools:sample/lorem[3]" />
+
+    <TextView
+        android:id="@+id/Recycler_View_Diastolic_Pressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="@tools:sample/lorem[3]" />
+
+    <TextView
+        android:id="@+id/Recycler_View_Systolic_Pressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="@tools:sample/lorem[4]" />
+
+    <TextView
+        android:id="@+id/Recycler_View_HeartRate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="@tools:sample/lorem[4]" />
+
+
+  </LinearLayout>
+</LinearLayout>
