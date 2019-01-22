@@ -2,57 +2,51 @@ package com.devon.deweert.cmput301_1;
 
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class MyHealthStats {
     public static String HEALTH_STAT_ID_EXTRA = "HEALTH_STAT_ID_EXTRA";
-    private Date dateMeasured;
-    private SimpleDateFormat myDateFormat= new SimpleDateFormat("yyyy-MM-dd");
-    private Date timeMeasured;
-    private  SimpleDateFormat myTimeFormat = new SimpleDateFormat("hh:mm");
+
+    private transient SimpleDateFormat myDateFormat= new SimpleDateFormat("yyyy-MM-dd");
+    private transient SimpleDateFormat myTimeFormat = new SimpleDateFormat("hh:mm");
+
+    private String dateMeasured;
+    private String timeMeasured;
+
     private Integer systolicPressure;
     private Integer diastolicPressure;
     private Integer heartRate;
+
     private String comment;
+
+    public static int DATA_KEY = 99;
+    public static String DATA_STRING = "GSON";
+
     
-    public MyHealthStats(){
-        dateMeasured = new Date();
+    public MyHealthStats( Integer first, Integer second, Integer third, String fourth){
+        dateMeasured = myDateFormat.format(new Date());
+        timeMeasured = myTimeFormat.format(new Date());
+        heartRate = first;
+        diastolicPressure = second;
+        systolicPressure = third;
+        comment = fourth;
     }
 
-    public MyHealthStats(MyHealthStats obj){
-        dateMeasured = obj.getDateMeasured();
-        timeMeasured = obj.getTimeMeasured();
-        systolicPressure = obj.getSystolicPressure();
-        diastolicPressure = obj.getDiastolicPressure();
-        heartRate = obj.getHeartRate();
-        comment = obj.getComment();
-    }
-    
-    public MyHealthStats(String first){
-
-    }
-    
-    public MyHealthStats(String first, String second){
-
-    }
-    
-    public MyHealthStats(String first, String second, String third){
-
-    }
-    
-    public MyHealthStats(String first, String second, String third, String fourth){
-
-    }
-    
-    public MyHealthStats(String first, String second, String third, String fourth, String fifth){
-
+    public MyHealthStats( Integer first, Integer second, Integer third){
+        dateMeasured = myDateFormat.format(new Date());
+        timeMeasured = myTimeFormat.format(new Date());
+        heartRate = first;
+        diastolicPressure = second;
+        systolicPressure = third;
+        comment = "";
     }
 
-    public Date getDateMeasured() {
+    public String getDateMeasured() {
         return dateMeasured;
     }
 
-    public Date getTimeMeasured() {
+    public String getTimeMeasured() {
         return timeMeasured;
     }
 
@@ -68,12 +62,12 @@ public class MyHealthStats {
         return systolicPressure;
     }
 
-    public String getMyDateFormat() {
-        return myDateFormat.format(dateMeasured);
+    public SimpleDateFormat getMyDateFormat() {
+        return myDateFormat;
     }
 
-    public String getMyTimeFormat(){
-        return myTimeFormat.format(timeMeasured);
+    public SimpleDateFormat getMyTimeFormat() {
+        return myTimeFormat;
     }
 
     public String getComment() {

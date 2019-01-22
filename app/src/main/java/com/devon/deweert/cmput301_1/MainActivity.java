@@ -10,6 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton addRouteButton;
     private SwipeController swipeController;
     private ItemTouchHelper itemTouchhelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +63,21 @@ public class MainActivity extends AppCompatActivity {
 
     public void startHealthStatsAdder(){
         Intent addRouteIntent = new Intent(this, AddHealthStats.class);
-        startActivity(addRouteIntent);
+        startActivityForResult(addRouteIntent, MyHealthStats.DATA_KEY);
     }
 
     public void startHealthStatsViewer(){
         Intent addRouteIntent = new Intent(this, ViewHealthStats.class);
         startActivity(addRouteIntent);
+    }
+
+    @Override
+    protected  void onActivityResult(int requestCode, int resultCode, Intent intent){
+        if(requestCode == MyHealthStats.DATA_KEY && resultCode == RESULT_OK){
+            String myHealthDataAsJson = intent.getStringExtra(MyHealthStats.DATA_STRING);
+            Type type = new TypeToken<ArrayList<MyHealthStats>>(){}.getType();
+            ArrayList<MyHealthStats> newHealthStats = new Gson().fromJson(myHealthDataAsJson, type);
+            mainRecycleViewAdapter.addItems(newHealthStats);
+        }
     }
 }

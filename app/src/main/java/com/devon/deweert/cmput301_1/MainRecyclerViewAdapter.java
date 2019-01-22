@@ -75,7 +75,7 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         // - replace the contents of the view with that element
 
         ((TextView) holder.mainTextView.findViewById(R.id.Recycler_View_Systolic_Pressure)).setText(mainDataset.get(position).getSystolicPressure().toString());
-        ((TextView) holder.mainTextView.findViewById(R.id.Recycler_View_Date_of_Measurement)).setText(mainDataset.get(position).getMyDateFormat());
+        ((TextView) holder.mainTextView.findViewById(R.id.Recycler_View_Date_of_Measurement)).setText(mainDataset.get(position).getDateMeasured());
         ((TextView) holder.mainTextView.findViewById(R.id.Recycler_View_Diastolic_Pressure)).setText(mainDataset.get(position).getDiastolicPressure().toString());
         ((TextView) holder.mainTextView.findViewById(R.id.Recycler_View_HeartRate)).setText(mainDataset.get(position).getHeartRate().toString());
 
@@ -94,12 +94,12 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
     }
 
     public void addItem(MyHealthStats newItem){
-        mainDataset.add(0, newItem);
+        mainDataset.add( newItem);
         this.notifyDataSetChanged();
     }
 
     public void addItems(ArrayList<MyHealthStats> newItems){
-        mainDataset.addAll(0, newItems);
+        mainDataset.addAll( newItems);
         this.notifyDataSetChanged();
     }
 
