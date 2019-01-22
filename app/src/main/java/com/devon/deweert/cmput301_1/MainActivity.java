@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -43,10 +44,17 @@ public class MainActivity extends AppCompatActivity {
         mainLayoutManager = new LinearLayoutManager(this);
         mainRecyclerView.setLayoutManager(mainLayoutManager);
 
-
+        RecyclerViewClickListener listener = new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                MyHealthStats clickedStats = mainRecycleViewAdapter.getItem(position);
+//                Toast toast = Toast.makeText(getBaseContext(), ((Integer)position).toString(), Toast.LENGTH_LONG);
+//                toast.show();
+            }
+        };
 
         // specify an adapter (see also next example)
-        mainRecycleViewAdapter = new MainRecyclerViewAdapter();
+        mainRecycleViewAdapter = new MainRecyclerViewAdapter(listener);
         mainRecyclerView.setAdapter(mainRecycleViewAdapter);
 
         swipeController = new SwipeController(mainRecycleViewAdapter);
