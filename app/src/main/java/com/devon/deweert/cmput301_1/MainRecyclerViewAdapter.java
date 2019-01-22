@@ -16,9 +16,16 @@ import java.util.List;
 import static com.devon.deweert.cmput301_1.MyHealthStats.HEALTH_STAT_ID_EXTRA;
 
 public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerViewAdapter.MainViewHolder> {
-    private ArrayList<MyHealthStats> mainDataset;
 
-    private RecyclerViewClickListener myListener;
+    private ArrayList<MyHealthStats> mainDataset = new ArrayList<MyHealthStats>();
+
+    private RecyclerViewClickListener listener = new RecyclerViewClickListener() {
+        @Override
+        public void onClick(View view, int position) {
+            //Do stuff
+
+        }
+    };
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -45,9 +52,8 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MainRecyclerViewAdapter(RecyclerViewClickListener listener) {
+    public MainRecyclerViewAdapter() {
 
-        myListener = listener;
     }
 
     // Create new views (invoked by the layout manager)
@@ -58,7 +64,7 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_view_item, parent, false);
 
-        MainViewHolder vh = new MainViewHolder(v, myListener);
+        MainViewHolder vh = new MainViewHolder(v, listener);
         return vh;
     }
 

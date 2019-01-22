@@ -38,16 +38,10 @@ public class MainActivity extends AppCompatActivity {
         mainLayoutManager = new LinearLayoutManager(this);
         mainRecyclerView.setLayoutManager(mainLayoutManager);
 
-        RecyclerViewClickListener listener = new RecyclerViewClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                startHealthStatsViewer();
 
-            }
-        };
 
         // specify an adapter (see also next example)
-        mainRecycleViewAdapter = new MainRecyclerViewAdapter(listener);
+        mainRecycleViewAdapter = new MainRecyclerViewAdapter();
         mainRecyclerView.setAdapter(mainRecycleViewAdapter);
 
         swipeController = new SwipeController(mainRecycleViewAdapter);
