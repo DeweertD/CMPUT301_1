@@ -82,7 +82,7 @@ public class AddHealthStats extends AppCompatActivity {
         if(DATA_READY_FLAG) {
             Intent intent = new Intent();
             String myHealthDataAsJson = new Gson().toJson(myNewHealthStats);
-            intent.putExtra(MyHealthStats.DATA_STRING,  myHealthDataAsJson);
+            intent.putExtra(MyHealthStats.HEALTH_DATA,  myHealthDataAsJson);
             setResult(RESULT_OK, intent);
 
         }else{

@@ -1,6 +1,5 @@
 package com.devon.deweert.cmput301_1;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -48,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 MyHealthStats clickedStats = mainRecycleViewAdapter.getItem(position);
+                startHealthStatsViewer(position, clickedStats);
 //                Toast toast = Toast.makeText(getBaseContext(), ((Integer)position).toString(), Toast.LENGTH_LONG);
 //                toast.show();
             }
@@ -70,22 +69,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startHealthStatsAdder(){
-        Intent addRouteIntent = new Intent(this, AddHealthStats.class);
-        startActivityForResult(addRouteIntent, MyHealthStats.DATA_KEY);
+        Intent addHealthStatsIntent = new Intent(this, AddHealthStats.class);
+        startActivityForResult(addHealthStatsIntent, MyHealthStats.ADD_KEY);
     }
 
-    public void startHealthStatsViewer(){
-        Intent addRouteIntent = new Intent(this, ViewHealthStats.class);
-        startActivity(addRouteIntent);
+    public void startHealthStatsViewer(int position, MyHealthStats dataPack){
+        Intent viewHealthStatsIntent = new Intent(this, ViewHealthStats.class);
+        String myHealthDataAsJson = new Gson().toJson(dataPack);
+        viewHealthStatsIntent.putExtra(MyHealthStats.HEALTH_DATA,  myHealthDataAsJson);
+        viewHealthStatsIntent.putExtra(MyHealthStats.INT_DATA, position);
+        startActivityForResult(viewHealthStatsIntent, MyHealthStats.VIEW_KEY);
     }
 
     @Override
     protected  void onActivityResult(int requestCode, int resultCode, Intent intent){
-        if(requestCode == MyHealthStats.DATA_KEY && resultCode == RESULT_OK){
-            String myHealthDataAsJson = intent.getStringExtra(MyHealthStats.DATA_STRING);
-            Type type = new TypeToken<ArrayList<MyHealthStats>>(){}.getType();
-            ArrayList<MyHealthStats> newHealthStats = new Gson().fromJson(myHealthDataAsJson, type);
-            mainRecycleViewAdapter.addItems(newHealthStats);
+        if(resultCode == RESULT_OK) {
+            String myHealthDataAsJson = intent.getStringExtra(MyHealthStats.HEALTH_DATA);
+
+            if (requestCode == MyHealthStats.ADD_KEY) {
+                Type type = new TypeToken<ArrayList<MyHealthStats>>() {
+                }.getType();
+                ArrayList<MyHealthStats> newHealthStats = new Gson().fromJson(myHealthDataAsJson, type);
+                mainRecycleViewAdapter.addItems(newHealthStats);
+            } else if (requestCode == MyHealthStats.VIEW_KEY) {
+                Type type = new TypeToken<MyHealthStats>() {}.getType();
+                MyHealthStats editedItem = new Gson().fromJson(myHealthDataAsJson, type);
+                int position = intent.getIntExtra(MyHealthStats.INT_DATA, 0);
+                mainRecycleViewAdapter.replaceItem(position, editedItem);
+            }
         }
     }
 }

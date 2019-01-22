@@ -89,12 +89,12 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
 
     public void addItem(MyHealthStats newItem){
         mainDataset.add( newItem);
-        this.notifyDataSetChanged();
+        updateItems();
     }
 
     public void addItems(ArrayList<MyHealthStats> newItems){
         mainDataset.addAll( newItems);
-        this.notifyDataSetChanged();
+        updateItems();
     }
 
     public void updateItems(){
@@ -103,6 +103,12 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
 
     public MyHealthStats getItem(int position){
         return mainDataset.get(position);
+    }
+
+    public void replaceItem(int position, MyHealthStats newItem){
+        deleteItem(position);
+        mainDataset.add(position, newItem);
+        updateItems();
     }
 }
 
