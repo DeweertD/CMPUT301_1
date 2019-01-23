@@ -1,4 +1,4 @@
-package com.devon.deweert.cmput301_1;
+package com.devon.deweert.deweert_CardioBook;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;

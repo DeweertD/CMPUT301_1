@@ -22,9 +22,11 @@
             android:background="@android:color/holo_red_dark">
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/MainActivityTitleBar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:text="@string/health_stats"
+                android:layout_marginTop="8dp"
                 android:textAlignment="center"
                 android:textSize="24sp"
                 android:textStyle="bold" />

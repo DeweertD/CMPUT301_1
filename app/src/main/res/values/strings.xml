@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CMPUT301_1</string>
+    <string name="app_name">deweert_CardioBook</string>
     <string name="Recycler_View_Heart_Image">Heart Picture</string>
     <string name="add_health_stats_title">Add Health Stats</string>
     <string name="add_health_stats_button">Add Health Data</string>
@@ -7,4 +7,7 @@
     <string name="hint_add_d_pressure">Diastolic Pressure</string>
     <string name="hint_add_s_pressure">Systolic Pressure</string>
     <string name="hint_add_comment">Comment</string>
+    <string name="edit_health_stats_button">Edit Health Data</string>
+    <string name="edit_stats_date_taken_static_string">Measurements Taken On</string>
+    <string name="health_stats">Health Stats</string>
 </resources>
