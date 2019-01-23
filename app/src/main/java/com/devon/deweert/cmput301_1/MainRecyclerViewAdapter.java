@@ -19,13 +19,7 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
 
     private ArrayList<MyHealthStats> mainDataset = new ArrayList<MyHealthStats>();
 
-    private RecyclerViewClickListener listener = new RecyclerViewClickListener() {
-        @Override
-        public void onClick(View view, int position) {
-            //Do stuff
-
-        }
-    };
+    private RecyclerViewClickListener myListener;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -52,8 +46,8 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MainRecyclerViewAdapter() {
-
+    public MainRecyclerViewAdapter(RecyclerViewClickListener listener) {
+        myListener = listener;
     }
 
     // Create new views (invoked by the layout manager)
@@ -64,7 +58,7 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_view_item, parent, false);
 
-        MainViewHolder vh = new MainViewHolder(v, listener);
+        MainViewHolder vh = new MainViewHolder(v, myListener);
         return vh;
     }
 
@@ -95,16 +89,26 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
 
     public void addItem(MyHealthStats newItem){
         mainDataset.add( newItem);
-        this.notifyDataSetChanged();
+        updateItems();
     }
 
     public void addItems(ArrayList<MyHealthStats> newItems){
         mainDataset.addAll( newItems);
-        this.notifyDataSetChanged();
+        updateItems();
     }
 
     public void updateItems(){
         this.notifyDataSetChanged();
+    }
+
+    public MyHealthStats getItem(int position){
+        return mainDataset.get(position);
+    }
+
+    public void replaceItem(int position, MyHealthStats newItem){
+        deleteItem(position);
+        mainDataset.add(position, newItem);
+        updateItems();
     }
 }
 

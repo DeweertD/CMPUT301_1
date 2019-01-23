@@ -20,8 +20,10 @@ public class MyHealthStats {
 
     private String comment;
 
-    public static int DATA_KEY = 99;
-    public static String DATA_STRING = "GSON";
+    public static int ADD_KEY = 99;
+    public static int VIEW_KEY = 66;
+    public static String HEALTH_DATA = "HEALTH";
+    public static String INT_DATA = "INT";
 
     
     public MyHealthStats( Integer first, Integer second, Integer third, String fourth){
