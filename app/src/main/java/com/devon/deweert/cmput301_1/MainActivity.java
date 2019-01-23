@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton addRouteButton;
     private SwipeController swipeController;
     private ItemTouchHelper itemTouchhelper;
-    private RecyclerViewClickListener listener;
 
 
     @Override
