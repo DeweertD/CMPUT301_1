@@ -61,11 +61,19 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
     public void onBindViewHolder(MainViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
+        TextView systolicView = (TextView) holder.mainTextView.findViewById(R.id.Recycler_View_Systolic_Pressure);
+        TextView dateView = (TextView) holder.mainTextView.findViewById(R.id.Recycler_View_Date_of_Measurement);
+        TextView diastolicView = (TextView) holder.mainTextView.findViewById(R.id.Recycler_View_Diastolic_Pressure);
+        TextView heartView = (TextView) holder.mainTextView.findViewById(R.id.Recycler_View_HeartRate);
 
-        ((TextView) holder.mainTextView.findViewById(R.id.Recycler_View_Systolic_Pressure)).setText(mainDataset.get(position).getSystolicPressure().toString());
-        ((TextView) holder.mainTextView.findViewById(R.id.Recycler_View_Date_of_Measurement)).setText(mainDataset.get(position).getDateMeasured());
-        ((TextView) holder.mainTextView.findViewById(R.id.Recycler_View_Diastolic_Pressure)).setText(mainDataset.get(position).getDiastolicPressure().toString());
-        ((TextView) holder.mainTextView.findViewById(R.id.Recycler_View_HeartRate)).setText(mainDataset.get(position).getHeartRate().toString());
+        int systolicPressure = mainDataset.get(position).getSystolicPressure();
+        int diastolicPressure = mainDataset.get(position).getDiastolicPressure();
+        int heartRate = mainDataset.get(position).getHeartRate();
+
+        (systolicView).setText(String.valueOf(systolicPressure));
+        (dateView).setText(mainDataset.get(position).getDateMeasured());
+        (diastolicView).setText(String.valueOf(diastolicPressure));
+        (heartView).setText(String.valueOf(heartRate));
 
     }
 
