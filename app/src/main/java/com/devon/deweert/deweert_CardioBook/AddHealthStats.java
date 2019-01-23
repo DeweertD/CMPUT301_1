@@ -21,7 +21,7 @@ public class AddHealthStats extends AppCompatActivity {
     private EditText systolicEditText;
     private EditText commentEditText;
     private boolean DATA_READY_FLAG = false;
-    private ArrayList<MyHealthStats> myNewHealthStats;
+    private MyHealthStats myNewHealthStats;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class AddHealthStats extends AppCompatActivity {
         heartRateEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
         diastolicEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
         systolicEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
-        myNewHealthStats = new ArrayList<MyHealthStats>();
+
 
         addHealthStatsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -58,8 +58,8 @@ public class AddHealthStats extends AppCompatActivity {
             diastolicEditText.setText("");
             commentEditText.setText("");
             DATA_READY_FLAG = true;
-            myNewHealthStats.add(new MyHealthStats(heartRate, diastolic, systolic, comment));
-
+            myNewHealthStats = new MyHealthStats(heartRate, diastolic, systolic, comment);
+            onBackPressed();
 
         }
         Toast toast = Toast.makeText(this, toShowInToast, Toast.LENGTH_LONG);

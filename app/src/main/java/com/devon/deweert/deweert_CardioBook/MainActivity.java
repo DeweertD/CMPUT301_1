@@ -12,6 +12,11 @@ import android.view.View;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -20,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mainRecyclerView;
     private MainRecyclerViewAdapter mainRecycleViewAdapter;
     private RecyclerView.LayoutManager mainLayoutManager;
-    private ArrayList<MyHealthStats> myDataset = new ArrayList<MyHealthStats>();
 
     private FloatingActionButton addRouteButton;
     private SwipeController swipeController;
@@ -51,14 +55,18 @@ public class MainActivity extends AppCompatActivity {
 //                toast.show();
             }
         };
+        ArrayList<MyHealthStats> myDataset = loadFromFile();
+        mainRecycleViewAdapter = new MainRecyclerViewAdapter(listener);
 
         // specify an adapter (see also next example)
-        mainRecycleViewAdapter = new MainRecyclerViewAdapter(listener);
+
         mainRecyclerView.setAdapter(mainRecycleViewAdapter);
 
         swipeController = new SwipeController(mainRecycleViewAdapter);
         itemTouchhelper = new ItemTouchHelper(swipeController);
         itemTouchhelper.attachToRecyclerView(mainRecyclerView);
+
+        mainRecycleViewAdapter.addItems(myDataset);
 
         addRouteButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         addRouteButton.setOnClickListener(new View.OnClickListener() {
@@ -87,10 +95,9 @@ public class MainActivity extends AppCompatActivity {
             String myHealthDataAsJson = intent.getStringExtra(MyHealthStats.HEALTH_DATA);
 
             if (requestCode == MyHealthStats.ADD_KEY) {
-                Type type = new TypeToken<ArrayList<MyHealthStats>>() {
-                }.getType();
-                ArrayList<MyHealthStats> newHealthStats = new Gson().fromJson(myHealthDataAsJson, type);
-                mainRecycleViewAdapter.addItems(newHealthStats);
+                Type type = new TypeToken<MyHealthStats>() {}.getType();
+                MyHealthStats newHealthStats = new Gson().fromJson(myHealthDataAsJson, type);
+                mainRecycleViewAdapter.addItem(newHealthStats);
             } else if (requestCode == MyHealthStats.VIEW_KEY) {
                 Type type = new TypeToken<MyHealthStats>() {}.getType();
                 MyHealthStats editedItem = new Gson().fromJson(myHealthDataAsJson, type);
@@ -98,5 +105,48 @@ public class MainActivity extends AppCompatActivity {
                 mainRecycleViewAdapter.replaceItem(position, editedItem);
             }
         }
+    }
+
+    private ArrayList<MyHealthStats> loadFromFile() {
+        ArrayList<MyHealthStats> myDataset = new ArrayList<MyHealthStats>();
+
+        try {
+            FileReader in = new FileReader(new File(getFilesDir(), MyHealthStats.FILENAME));
+            Gson gson = new Gson();
+            Type type = new TypeToken<ArrayList<MyHealthStats>>(){}.getType();
+            myDataset = gson.fromJson(in, type);
+            in.close();
+        } catch (FileNotFoundException e) {
+            // TO DO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TO DO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return myDataset;
+    }
+
+    private void saveInFile() {
+        ArrayList<MyHealthStats> myDataset = mainRecycleViewAdapter.getMainDataset();
+
+        try {
+            FileWriter out = new FileWriter(new File(getFilesDir(), MyHealthStats.FILENAME));
+            Gson gson = new Gson();
+            gson.toJson(myDataset, out);
+            out.close();
+        } catch (FileNotFoundException e) {
+            // TO DO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TO DO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void onStop(){
+        saveInFile();
+        super.onStop();
     }
 }

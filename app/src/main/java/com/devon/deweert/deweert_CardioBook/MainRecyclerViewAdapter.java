@@ -7,11 +7,17 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerViewAdapter.MainViewHolder> {
 
-    private ArrayList<MyHealthStats> mainDataset = new ArrayList<MyHealthStats>();
+    private ArrayList<MyHealthStats> mainDataset;
 
     private RecyclerViewClickListener myListener;
 
@@ -42,7 +48,9 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
     // Provide a suitable constructor (depends on the kind of dataset)
     public MainRecyclerViewAdapter(RecyclerViewClickListener listener) {
         myListener = listener;
+        mainDataset  = new ArrayList<MyHealthStats>();
     }
+
 
     // Create new views (invoked by the layout manager)
     @Override
@@ -87,6 +95,7 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         mainDataset.remove(position);
         this.notifyItemRemoved(position);    //notifies the RecyclerView Adapter that data in adapter has been removed at a particular position.
         this.notifyItemRangeChanged(position, this.getItemCount());
+        updateItems();
     }
 
     public void addItem(MyHealthStats newItem){
@@ -94,12 +103,13 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         updateItems();
     }
 
+    //depreciated...
     public void addItems(ArrayList<MyHealthStats> newItems){
         mainDataset.addAll( newItems);
         updateItems();
     }
 
-    public void updateItems(){
+    private void updateItems(){
         this.notifyDataSetChanged();
     }
 
@@ -112,5 +122,11 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         mainDataset.add(position, newItem);
         updateItems();
     }
+
+    public ArrayList<MyHealthStats> getMainDataset(){
+        return mainDataset;
+    }
+
+
 }
 

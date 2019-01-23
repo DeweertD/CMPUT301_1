@@ -23,6 +23,7 @@ public class MyHealthStats {
     public static int VIEW_KEY = 66;
     public static String HEALTH_DATA = "HEALTH";
     public static String INT_DATA = "INT";
+    public static final String FILENAME = "MyHealthStats.sav";
 
     
     public MyHealthStats( Integer first, Integer second, Integer third, String fourth){
