@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">deweert-CardioBook</string>
+    <string name="app_name">deweert_CardioBook</string>
     <string name="Recycler_View_Heart_Image">Heart Picture</string>
     <string name="add_health_stats_title">Add Health Stats</string>
     <string name="add_health_stats_button">Add Health Data</string>
