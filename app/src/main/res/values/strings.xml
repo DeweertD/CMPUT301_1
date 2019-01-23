@@ -9,4 +9,5 @@
     <string name="hint_add_comment">Comment</string>
     <string name="edit_health_stats_button">Edit Health Data</string>
     <string name="edit_stats_date_taken_static_string">Measurements Taken On</string>
+    <string name="health_stats">Health Stats</string>
 </resources>
