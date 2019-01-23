@@ -1,16 +1,14 @@
-package com.devon.deweert.cmput301_1;
+package com.devon.deweert.deweert_CardioBook;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 public class ViewHealthStats extends AppCompatActivity {
 

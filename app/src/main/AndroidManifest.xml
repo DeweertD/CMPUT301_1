@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.devon.deweert.cmput301_1">
+    package="com.devon.deweert.deweert_CardioBook">
 
     <application
         android:allowBackup="true"
@@ -9,9 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ViewHealthStats"></activity>
-        <activity android:name=".AddHealthStats" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.devon.deweert.deweert_CardioBook.ViewHealthStats"></activity>
+        <activity android:name="com.devon.deweert.deweert_CardioBook.AddHealthStats" />
+        <activity android:name="com.devon.deweert.deweert_CardioBook.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
