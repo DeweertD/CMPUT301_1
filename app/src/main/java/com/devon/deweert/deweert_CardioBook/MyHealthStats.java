@@ -29,20 +29,12 @@ public class MyHealthStats {
     public MyHealthStats( Integer first, Integer second, Integer third, String fourth){
         dateMeasured = myDateFormat.format(new Date());
         timeMeasured = myTimeFormat.format(new Date());
-        heartRate = first;
-        diastolicPressure = second;
-        systolicPressure = third;
+        heartRate = new Integer(first);
+        diastolicPressure = new Integer(second);
+        systolicPressure = new Integer(third);
         comment = fourth;
     }
 
-    public MyHealthStats( Integer first, Integer second, Integer third){
-        dateMeasured = myDateFormat.format(new Date());
-        timeMeasured = myTimeFormat.format(new Date());
-        heartRate = first;
-        diastolicPressure = second;
-        systolicPressure = third;
-        comment = "";
-    }
 
     public String getDateMeasured() {
         return dateMeasured;

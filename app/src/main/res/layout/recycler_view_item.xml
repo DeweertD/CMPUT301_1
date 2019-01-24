@@ -11,10 +11,10 @@
 
   <ImageView
       android:id="@+id/Recycler_View_Image"
-      android:layout_width="60dp"
+      android:layout_width="80dp"
       android:layout_height="match_parent"
       android:contentDescription="@string/Recycler_View_Heart_Image"
-      app:srcCompat="@android:drawable/btn_star_big_on" />
+      app:srcCompat="@drawable/greencheck" />
 
   <LinearLayout
       android:id="@+id/Recycler_View_Inner_Linear_Layout"

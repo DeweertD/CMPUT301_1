@@ -1,9 +1,13 @@
 package com.devon.deweert.deweert_CardioBook;
 
+import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.ViewModelProvider;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -74,14 +78,19 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         TextView diastolicView = (TextView) holder.mainTextView.findViewById(R.id.Recycler_View_Diastolic_Pressure);
         TextView heartView = (TextView) holder.mainTextView.findViewById(R.id.Recycler_View_HeartRate);
 
-        int systolicPressure = mainDataset.get(position).getSystolicPressure();
-        int diastolicPressure = mainDataset.get(position).getDiastolicPressure();
-        int heartRate = mainDataset.get(position).getHeartRate();
+        Integer systolicPressure = mainDataset.get(position).getSystolicPressure();
+        Integer diastolicPressure = mainDataset.get(position).getDiastolicPressure();
+        Integer heartRate = mainDataset.get(position).getHeartRate();
 
         (systolicView).setText(String.valueOf(systolicPressure));
         (dateView).setText(mainDataset.get(position).getDateMeasured());
         (diastolicView).setText(String.valueOf(diastolicPressure));
         (heartView).setText(String.valueOf(heartRate));
+
+        if((systolicPressure.compareTo(140) > 0) || (systolicPressure.compareTo(90) < 0 ) ||
+                (diastolicPressure.compareTo(90) > 0) || (diastolicPressure.compareTo(60) < 0)){
+            ((ImageView) holder.mainTextView.findViewById(R.id.Recycler_View_Image)).setImageResource(R.drawable.redx);
+        }
 
     }
 
