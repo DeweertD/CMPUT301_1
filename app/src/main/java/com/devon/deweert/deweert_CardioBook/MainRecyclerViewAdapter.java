@@ -87,6 +87,8 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         (diastolicView).setText(String.valueOf(diastolicPressure));
         (heartView).setText(String.valueOf(heartRate));
 
+        ((ImageView) holder.mainTextView.findViewById(R.id.Recycler_View_Image)).setImageResource(R.drawable.greencheck);
+
         if((systolicPressure.compareTo(140) > 0) || (systolicPressure.compareTo(90) < 0 ) ||
                 (diastolicPressure.compareTo(90) > 0) || (diastolicPressure.compareTo(60) < 0)){
             ((ImageView) holder.mainTextView.findViewById(R.id.Recycler_View_Image)).setImageResource(R.drawable.redx);
