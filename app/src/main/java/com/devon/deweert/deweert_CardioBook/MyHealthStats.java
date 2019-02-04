@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MyHealthStats {
-    public static String HEALTH_STAT_ID_EXTRA = "HEALTH_STAT_ID_EXTRA";
+    //public static String HEALTH_STAT_ID_EXTRA = "HEALTH_STAT_ID_EXTRA";
 
     private transient SimpleDateFormat myDateFormat= new SimpleDateFormat("yyyy-MM-dd");
     private transient SimpleDateFormat myTimeFormat = new SimpleDateFormat("hh:mm");

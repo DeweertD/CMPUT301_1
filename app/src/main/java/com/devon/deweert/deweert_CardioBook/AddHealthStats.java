@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 public class AddHealthStats extends AppCompatActivity {
 
-    private Button addHealthStatsButton;
     private EditText heartRateEditText;
     private EditText diastolicEditText;
     private EditText systolicEditText;
@@ -28,7 +27,7 @@ public class AddHealthStats extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_health_stats);
 
-        addHealthStatsButton = (Button) findViewById(R.id.SubmitHealthStats);
+        Button addHealthStatsButton = (Button) findViewById(R.id.SubmitHealthStats);
         heartRateEditText = (EditText) findViewById(R.id.HeartRateTextField);
         diastolicEditText = (EditText) findViewById(R.id.DiastolicPressureTextField);
         systolicEditText = (EditText) findViewById(R.id.SystolicPressureTextField);
@@ -45,6 +44,7 @@ public class AddHealthStats extends AppCompatActivity {
         });
     }
 
+    //Sanitize the data fields, if good then commit the health stats data
     public void checkHealthStatsData(){
         String toShowInToast = "Data is not valid";
         Integer heartRate = tryParseInt(heartRateEditText.getText().toString());

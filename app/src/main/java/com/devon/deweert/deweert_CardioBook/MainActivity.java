@@ -22,13 +22,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView mainRecyclerView;
     private MainRecyclerViewAdapter mainRecycleViewAdapter;
-    private RecyclerView.LayoutManager mainLayoutManager;
-
-    private FloatingActionButton addRouteButton;
-    private SwipeController swipeController;
-    private ItemTouchHelper itemTouchhelper;
 
 
     @Override
@@ -36,51 +30,72 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Local Variables for activity creation, functionality, and data storage
+        ArrayList<MyHealthStats> myDataSet = loadFromFile();
+
+        ItemTouchHelper itemTouchhelper;
+        SwipeController swipeController;
+        FloatingActionButton addHealthStatsButton;
+        RecyclerView.LayoutManager mainLayoutManager;
+        RecyclerView mainRecyclerView;
+
+
+        //Setting up the main page recyclerView using findViewById
         mainRecyclerView = (RecyclerView) findViewById(R.id.MainRecyclerView);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mainRecyclerView.setHasFixedSize(true);
 
-        // use a linear layout manager
+        // use a linear layout manager because the list is easy to display in
+        //linear fashion
         mainLayoutManager = new LinearLayoutManager(this);
         mainRecyclerView.setLayoutManager(mainLayoutManager);
 
+        //create a click listener that calls back to here, allows us to
+        // create new activities from 'THIS' context without passing 'THIS'
+        //into the recyclerView directly.
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
                 MyHealthStats clickedStats = mainRecycleViewAdapter.getItem(position);
                 startHealthStatsViewer(position, clickedStats);
-//                Toast toast = Toast.makeText(getBaseContext(), ((Integer)position).toString(), Toast.LENGTH_LONG);
-//                toast.show();
+
             }
         };
-        ArrayList<MyHealthStats> myDataset = loadFromFile();
+
+        //create the adapter to manage the data and the recyclerView,
+        //give it the above listener
         mainRecycleViewAdapter = new MainRecyclerViewAdapter(listener);
-
-        // specify an adapter (see also next example)
-
         mainRecyclerView.setAdapter(mainRecycleViewAdapter);
 
+        //interactivity helpers (touch for edit, swipe for delete)
         swipeController = new SwipeController(mainRecycleViewAdapter);
         itemTouchhelper = new ItemTouchHelper(swipeController);
         itemTouchhelper.attachToRecyclerView(mainRecyclerView);
 
-        mainRecycleViewAdapter.addItems(myDataset);
-
-        addRouteButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
-        addRouteButton.setOnClickListener(new View.OnClickListener() {
+        //Add a button click listener so the user can track new data
+        addHealthStatsButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        addHealthStatsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startHealthStatsAdder();
             }
         });
+
+        //If we got any data from file, add it to the
+        //(now finished with setup) recyclerViewAdapter
+        mainRecycleViewAdapter.addItems(myDataSet);
     }
 
+    //Start a new activity to add health stats
+    //Called by pressing the floating button on the main activity page
     public void startHealthStatsAdder(){
         Intent addHealthStatsIntent = new Intent(this, AddHealthStats.class);
         startActivityForResult(addHealthStatsIntent, MyHealthStats.ADD_KEY);
     }
 
+    //Start a new activity to view and edit previous health stats
+    //Called from a touch activity on the recyclerView list of stats
     public void startHealthStatsViewer(int position, MyHealthStats dataPack){
         Intent viewHealthStatsIntent = new Intent(this, ViewHealthStats.class);
         String myHealthDataAsJson = new Gson().toJson(dataPack);
@@ -89,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(viewHealthStatsIntent, MyHealthStats.VIEW_KEY);
     }
 
+    //Whenever one of the other activities returns we check to see if good
+    //data was entered and then add the good data to the adapter data list
     @Override
     protected  void onActivityResult(int requestCode, int resultCode, Intent intent){
         if(resultCode == RESULT_OK) {
@@ -108,13 +125,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private ArrayList<MyHealthStats> loadFromFile() {
-        ArrayList<MyHealthStats> myDataset = new ArrayList<MyHealthStats>();
+        ArrayList<MyHealthStats> myDataSet = new ArrayList<MyHealthStats>();
 
         try {
             FileReader in = new FileReader(new File(getFilesDir(), MyHealthStats.FILENAME));
             Gson gson = new Gson();
             Type type = new TypeToken<ArrayList<MyHealthStats>>(){}.getType();
-            myDataset = gson.fromJson(in, type);
+            myDataSet = gson.fromJson(in, type);
             in.close();
         } catch (FileNotFoundException e) {
             // TO DO Auto-generated catch block
@@ -123,11 +140,11 @@ public class MainActivity extends AppCompatActivity {
             // TO DO Auto-generated catch block
             e.printStackTrace();
         }
-        return myDataset;
+        return myDataSet;
     }
 
     private void saveInFile() {
-        ArrayList<MyHealthStats> myDataset = mainRecycleViewAdapter.getMainDataset();
+        ArrayList<MyHealthStats> myDataset = mainRecycleViewAdapter.getMainDataSet();
 
         try {
             FileWriter out = new FileWriter(new File(getFilesDir(), MyHealthStats.FILENAME));

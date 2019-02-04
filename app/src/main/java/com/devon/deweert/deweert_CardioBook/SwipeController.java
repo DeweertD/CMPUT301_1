@@ -6,6 +6,9 @@ import android.support.v7.widget.helper.ItemTouchHelper.Callback;
 
 import static android.support.v7.widget.helper.ItemTouchHelper.*;
 
+
+//Swipe controller made with help from
+//https://codeburst.io/android-swipe-menu-with-recyclerview-8f28a235ff28
 public class SwipeController extends Callback {
     private MainRecyclerViewAdapter myAdapter;
 
@@ -29,18 +32,8 @@ public class SwipeController extends Callback {
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
         Integer position = viewHolder.getAdapterPosition();
-//        viewHolder.deleteItem(position);
         //Log.d("SwipeController", position.toString());
         myAdapter.deleteItem(position);
 
     }
-
-//    @Override
-//    public int convertToAbsoluteDirection(int flags, int layoutDirection) {
-//        if (swipeBack) {
-//            swipeBack = false;
-//            return 0;
-//        }
-//        return super.convertToAbsoluteDirection(flags, layoutDirection);
-//    }
 }

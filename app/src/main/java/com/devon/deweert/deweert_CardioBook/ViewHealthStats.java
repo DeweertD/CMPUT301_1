@@ -17,7 +17,7 @@ import java.lang.reflect.Type;
 
 public class ViewHealthStats extends AppCompatActivity {
 
-    private Intent intent;
+
     private MyHealthStats myHealthStats;
     private int position;
     private boolean DATA_READY_FLAG = false;
@@ -40,8 +40,8 @@ public class ViewHealthStats extends AppCompatActivity {
         diastolicEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
         systolicEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
 
-        intent  = getIntent();
-        getAllData();
+        Intent intent  = getIntent();
+        getAllData(intent);
 
         setTextFields();
 
@@ -52,7 +52,7 @@ public class ViewHealthStats extends AppCompatActivity {
         });
     }
 
-    private void getAllData(){
+    private void getAllData(Intent intent){
         Bundle dataBundle = intent.getExtras();
         if(dataBundle != null){
             breakupData(dataBundle);

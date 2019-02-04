@@ -1,9 +1,6 @@
 package com.devon.deweert.deweert_CardioBook;
 
-import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.ViewModelProvider;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,25 +8,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerViewAdapter.MainViewHolder> {
 
-    private ArrayList<MyHealthStats> mainDataset;
-
+    private ArrayList<MyHealthStats> mainDataSet;
     private RecyclerViewClickListener myListener;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class MainViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener {
-        // each data item is just a string in this case
+    public static class MainViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        // each data item is a MyHealthStats member
         public LinearLayout mainTextView;
         private RecyclerViewClickListener myListener;
 
@@ -52,7 +42,7 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
     // Provide a suitable constructor (depends on the kind of dataset)
     public MainRecyclerViewAdapter(RecyclerViewClickListener listener) {
         myListener = listener;
-        mainDataset  = new ArrayList<MyHealthStats>();
+        mainDataSet = new ArrayList<MyHealthStats>();
     }
 
 
@@ -78,12 +68,12 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         TextView diastolicView = (TextView) holder.mainTextView.findViewById(R.id.Recycler_View_Diastolic_Pressure);
         TextView heartView = (TextView) holder.mainTextView.findViewById(R.id.Recycler_View_HeartRate);
 
-        Integer systolicPressure = mainDataset.get(position).getSystolicPressure();
-        Integer diastolicPressure = mainDataset.get(position).getDiastolicPressure();
-        Integer heartRate = mainDataset.get(position).getHeartRate();
+        Integer systolicPressure = mainDataSet.get(position).getSystolicPressure();
+        Integer diastolicPressure = mainDataSet.get(position).getDiastolicPressure();
+        Integer heartRate = mainDataSet.get(position).getHeartRate();
 
         (systolicView).setText(String.valueOf(systolicPressure));
-        (dateView).setText(mainDataset.get(position).getDateMeasured());
+        (dateView).setText(mainDataSet.get(position).getDateMeasured());
         (diastolicView).setText(String.valueOf(diastolicPressure));
         (heartView).setText(String.valueOf(heartRate));
 
@@ -99,24 +89,24 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mainDataset.size();
+        return mainDataSet.size();
     }
 
     public void deleteItem(int position){
-        mainDataset.remove(position);
+        mainDataSet.remove(position);
         this.notifyItemRemoved(position);    //notifies the RecyclerView Adapter that data in adapter has been removed at a particular position.
         this.notifyItemRangeChanged(position, this.getItemCount());
         updateItems();
     }
 
     public void addItem(MyHealthStats newItem){
-        mainDataset.add( newItem);
+        mainDataSet.add( newItem);
         updateItems();
     }
 
-    //depreciated...
+
     public void addItems(ArrayList<MyHealthStats> newItems){
-        mainDataset.addAll( newItems);
+        mainDataSet.addAll( newItems);
         updateItems();
     }
 
@@ -125,17 +115,17 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
     }
 
     public MyHealthStats getItem(int position){
-        return mainDataset.get(position);
+        return mainDataSet.get(position);
     }
 
     public void replaceItem(int position, MyHealthStats newItem){
         deleteItem(position);
-        mainDataset.add(position, newItem);
+        mainDataSet.add(position, newItem);
         updateItems();
     }
 
-    public ArrayList<MyHealthStats> getMainDataset(){
-        return mainDataset;
+    public ArrayList<MyHealthStats> getMainDataSet(){
+        return mainDataSet;
     }
 
 
